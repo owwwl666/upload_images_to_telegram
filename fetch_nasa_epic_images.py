@@ -22,7 +22,7 @@ def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-api_key", required=False)
+    parser.add_argument("--api_key", required=False)
     args = parser.parse_args()
     if args.api_key:
         downloads_images_from_nasa_epic(api_key=args.api_key)
