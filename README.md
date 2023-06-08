@@ -54,4 +54,5 @@ pip install -r requirements.txt
   - Запускаем скрипт `publication_all_photos.py` для публикации в канал в рандомном порядке всех фото, находящихся в папке 'images' с интервалом времени, указанном в минутах.
 
   ### Результаты
-  
+  ![](https://github.com/owwwl666/upload_images_to_telegram/blob/main/directory.png)
+  ![](https://github.com/owwwl666/upload_images_to_telegram/blob/main/telegram.png)
