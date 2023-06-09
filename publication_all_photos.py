@@ -4,6 +4,7 @@ import random
 import telegram
 import pathlib
 from environs import Env
+from reading_file import reads_file
 
 
 def main():
@@ -11,20 +12,20 @@ def main():
     env.read_env()
 
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
-    directory = env('PATH_TO_PHOTOS_DIRECTORY')
+    directory = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY'))
     photos = os.listdir(pathlib.Path.cwd().joinpath('images'))
-    default_sleep = 4*3600
+    default_sleep = 4 * 3600
 
     while True:
         try:
             random.shuffle(photos)
             for photo in photos:
-                bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'{directory}{photo}', 'rb'))
+                bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int),
+                               photo=reads_file(pathlib.Path(directory).joinpath(photo)))
                 time.sleep(default_sleep)
         except telegram.error.NetworkError:
             time.sleep(30)
             continue
-
 
 
 if __name__ == '__main__':
