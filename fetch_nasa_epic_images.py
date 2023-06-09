@@ -10,10 +10,10 @@ def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'
     earth_photos_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
                                     params={'api_key': api_key}).json()[:quantity_photos]
     for image in earth_photos_url:
-        image_date = datetime.fromisoformat(image.get('date')) \
+        image_date = datetime.fromisoformat(image['date']) \
             .strftime('%Y/%m/%d')
-        image_name = image.get('image')
-        image_id = image.get('identifier')
+        image_name = image['image']
+        image_id = image['identifier']
         epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/' \
                          f'{image_date}/png/{image_name}.png'
         photo_name = f'epic_{image_id}.png'
