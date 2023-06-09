@@ -4,6 +4,7 @@ import pathlib
 import environs
 import telegram
 from environs import Env
+from reading_file import reads_file
 
 
 def main():
@@ -11,13 +12,14 @@ def main():
     env.read_env()
 
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
-    directory = env('PATH_TO_PHOTOS_DIRECTORY')
+    directory = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY'))
     photos = os.listdir(pathlib.Path.cwd().joinpath('images'))
 
     try:
-        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(env('PATH_TO_PHOTO'), 'rb'))
+        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=reads_file(env('PATH_TO_PHOTO')))
     except environs.EnvError:
-        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'{directory}{random.choice(photos)}', 'rb'))
+        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int),
+                       photo=reads_file(pathlib.Path(directory).joinpath(random.choice(photos))))
 
 
 if __name__ == '__main__':
