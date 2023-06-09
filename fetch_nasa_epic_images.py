@@ -7,9 +7,9 @@ from download_file import downloads_file
 
 def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
-    epic_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
-                            params={'api_key': api_key}).json()[:3]
-    for image in epic_url:
+    earth_photos_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
+                                    params={'api_key': api_key}).json()[:3]
+    for image in earth_photos_url:
         image_date = datetime.fromisoformat(image.get('date')) \
             .strftime('%Y/%m/%d')
         image_name = image.get('image')
