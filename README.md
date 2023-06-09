@@ -31,7 +31,7 @@ pip install -r requirements.txt
   - Запуск скрипта для скачивания фото по личному api_key:
     
     ```
-    python fetch_nasa_epic_images.py --api_key [API_KEY]
+    python fetch_nasa_epic_images.py -key [API_KEY] -qp [QUANTITY_PHOTOS]
     ```
   - Запуск скрипта для скачивания фото по default (DEMO_KEY) api_key (без передачи аргументов):
     
@@ -44,7 +44,7 @@ pip install -r requirements.txt
   - TELEGRAM_BOT_TOKEN=токен созданного чат-бота
   - TELEGRAM_CHAT_ID=ссылка на id канала (целое число)
   - PATH_TO_PHOTOS=путь до желаемого фото (НЕОБЯЗАТЕЛЬНОЕ ПОЛЕ)
-  - PUBLICATION_FREQUENCY=интервал времени для публикации очередного фото из 'images' (целое число) 
+  - PATH_TO_PHOTOS_DIRECTORY=путь до директории, где хранятся скачанные фото 
   
   ### Публикация фото в Telegram канал
   
