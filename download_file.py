@@ -1,11 +1,12 @@
 import requests
+from pathlib import Path
 
 
-def downloads_file(url, folder, file_name,**kwargs):
+def downloads_file(url, folder, file_name, **kwargs):
     """Скачивание и сохранение файла"""
-    response = requests.get(url,params=kwargs)
+    response = requests.get(url, params=kwargs)
     response.raise_for_status()
-    with open(f'{folder}/{file_name}', 'wb') as file:
+    with open(f'{Path(folder).joinpath(file_name)}', 'wb') as file:
         file.write(response.content)
 
 
