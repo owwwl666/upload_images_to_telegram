@@ -21,10 +21,6 @@ def main():
     parser.add_argument("-id", "--identifier", required=False, default='6243adcaaf52800c6e919254')
     args = parser.parse_args()
     fetch_spacex_last_launch(launch_id=args.identifier)
-    # if args.identifier:
-    #     fetch_spacex_last_launch(launch_id=args.identifier)
-    # else:
-    #     fetch_spacex_last_launch()
 
 
 if __name__ == '__main__':
