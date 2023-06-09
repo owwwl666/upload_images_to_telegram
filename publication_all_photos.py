@@ -2,6 +2,7 @@ import os
 import time
 import random
 import telegram
+import pathlib
 from environs import Env
 
 
@@ -11,14 +12,14 @@ def main():
 
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
     directory = env('PATH_TO_PHOTOS_DIRECTORY')
-    photos = os.listdir('./images')
+    photos = os.listdir(pathlib.Path.cwd().joinpath('images'))
     default_sleep = 4*3600
 
     while True:
         try:
             random.shuffle(photos)
             for photo in photos:
-                bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'{directory}/{photo}', 'rb'))
+                bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'{directory}{photo}', 'rb'))
                 time.sleep(default_sleep)
         except telegram.error.NetworkError:
             time.sleep(30)
