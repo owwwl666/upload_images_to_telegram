@@ -1,19 +1,19 @@
 import requests
 import pathlib
 import argparse
+from download_file import downloads_file
 
 
 def fetch_spacex_last_launch(images_folder='./images',
-                             launch_id='61eefaa89eb1064137a1bd73'):
+                             launch_id='6243adcaaf52800c6e919254'):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
-    response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch_id}/")
+    response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch_id}")
+    response.raise_for_status()
     launch_images = response.json()['links']['flickr']['original']
 
     for image_number, image_url in enumerate(launch_images):
         image_name = f'spacex_{image_number}{launch_id}.jpeg'
-        response = requests.get(image_url)
-        with open(f'{images_folder}/{image_name}', 'wb') as file:
-            file.write(response.content)
+        downloads_file(image_url, images_folder, image_name)
 
 
 def main():
