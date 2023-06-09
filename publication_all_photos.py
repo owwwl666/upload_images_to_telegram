@@ -13,10 +13,13 @@ def main():
     photos = os.listdir('./images')
 
     while True:
-        random.shuffle(photos)
-        for photo in photos:
-            bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'./images/{photo}', 'rb'))
-            time.sleep(int(env('PUBLICATION_FREQUENCY')) * 60)
+        try:
+            random.shuffle(photos)
+            for photo in photos:
+                bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'./images/{photo}', 'rb'))
+                time.sleep(int(env('PUBLICATION_FREQUENCY')) * 60)
+        except telegram.error.NetworkError:
+            continue
 
 
 if __name__ == '__main__':
