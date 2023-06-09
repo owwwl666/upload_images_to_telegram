@@ -1,5 +1,7 @@
 import os
 import random
+
+import environs
 import telegram
 from environs import Env
 
@@ -13,8 +15,8 @@ def main():
     photos = os.listdir('./images')
 
     try:
-        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(env('PATH_TO_PHOTOS'), 'rb'))
-    except:
+        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(env('PATH_TO_PHOTO'), 'rb'))
+    except environs.EnvError:
         bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'{directory}{random.choice(photos)}', 'rb'))
 
 
