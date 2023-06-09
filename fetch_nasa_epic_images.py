@@ -2,6 +2,7 @@ import requests
 import pathlib
 import argparse
 from datetime import datetime
+from download_file import downloads_file
 
 
 def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'):
@@ -15,9 +16,8 @@ def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'
         image_id = image.get('identifier')
         epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/' \
                          f'{image_date}/png/{image_name}.png'
-        response = requests.get(epic_image_url, params={'api_key': api_key})
-        with open(f'{images_folder}/epic_{image_id}.png', 'wb') as file:
-            file.write(response.content)
+        photo_name = f'epic_{image_id}.png'
+        downloads_file(epic_image_url, images_folder, photo_name, api_key=api_key)
 
 
 def main():
