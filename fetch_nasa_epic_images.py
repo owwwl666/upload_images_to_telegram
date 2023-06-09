@@ -5,7 +5,8 @@ from datetime import datetime
 from download_file import downloads_file
 
 
-def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY', quantity_photos=3):
+def downloads_images_from_nasa_epic(images_folder=pathlib.Path.cwd().joinpath('images'),
+                                    api_key='DEMO_KEY', quantity_photos=3):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
     earth_photos_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
                                     params={'api_key': api_key}).json()[:quantity_photos]
