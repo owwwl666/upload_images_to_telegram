@@ -4,7 +4,7 @@ import argparse
 from download_file import downloads_file
 
 
-def fetch_spacex_last_launch(images_folder='./images',
+def fetch_spacex_last_launch(images_folder=pathlib.Path.cwd().joinpath('images'),
                              launch_id='6243adcaaf52800c6e919254'):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(f"https://api.spacexdata.com/v5/launches/{launch_id}")
@@ -18,7 +18,7 @@ def fetch_spacex_last_launch(images_folder='./images',
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-id", "--identifier", required=False,default='6243adcaaf52800c6e919254')
+    parser.add_argument("-id", "--identifier", required=False, default='6243adcaaf52800c6e919254')
     args = parser.parse_args()
     fetch_spacex_last_launch(launch_id=args.identifier)
     # if args.identifier:
