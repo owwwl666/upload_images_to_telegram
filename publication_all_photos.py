@@ -11,13 +11,14 @@ def main():
 
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
     photos = os.listdir('./images')
+    default_sleep = 4*3600
 
     while True:
         try:
             random.shuffle(photos)
             for photo in photos:
                 bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'./images/{photo}', 'rb'))
-                time.sleep(int(env('PUBLICATION_FREQUENCY')) * 60)
+                time.sleep(default_sleep)
         except telegram.error.NetworkError:
             time.sleep(30)
             continue
