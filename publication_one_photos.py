@@ -4,7 +4,7 @@ import pathlib
 import environs
 import telegram
 from environs import Env
-from reading_file import reads_file
+from opening_and_reading_file import reads_file
 
 
 def main():
