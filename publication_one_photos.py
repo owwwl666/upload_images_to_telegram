@@ -15,9 +15,7 @@ def main():
     try:
         bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(env('PATH_TO_PHOTOS'), 'rb'))
     except:
-        random.shuffle(photos)
-        photo = photos[0]
-        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'./images/{photo}', 'rb'))
+        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=open(f'./images/{random.choice(photos)}', 'rb'))
 
 
 if __name__ == '__main__':
