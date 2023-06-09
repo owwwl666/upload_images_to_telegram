@@ -5,10 +5,10 @@ from datetime import datetime
 from download_file import downloads_file
 
 
-def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'):
+def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY', quantity_photos=3):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
     earth_photos_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
-                                    params={'api_key': api_key}).json()[:3]
+                                    params={'api_key': api_key}).json()[:quantity_photos]
     for image in earth_photos_url:
         image_date = datetime.fromisoformat(image.get('date')) \
             .strftime('%Y/%m/%d')
@@ -22,12 +22,10 @@ def downloads_images_from_nasa_epic(images_folder='./images', api_key='DEMO_KEY'
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--api_key", required=False)
+    parser.add_argument("-key", "--api_key", required=False, default='DEMO_KEY')
+    parser.add_argument("-qp", "--quantity_photos", required=False, default=3, type=int)
     args = parser.parse_args()
-    if args.api_key:
-        downloads_images_from_nasa_epic(api_key=args.api_key)
-    else:
-        downloads_images_from_nasa_epic()
+    downloads_images_from_nasa_epic(api_key=args.api_key, quantity_photos=args.quantity_photos)
 
 
 if __name__ == '__main__':
