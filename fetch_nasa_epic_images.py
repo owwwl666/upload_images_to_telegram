@@ -9,8 +9,11 @@ def downloads_images_from_nasa_epic(images_folder=pathlib.Path.cwd().joinpath('i
                                     api_key='DEMO_KEY', quantity_photos=3):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
     earth_photos_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
-                                    params={'api_key': api_key}).json()[:quantity_photos]
-    for image in earth_photos_url:
+                                    params={'api_key': api_key})
+    earth_photos_url.raise_for_status()
+    earth_photos = earth_photos_url.json()[:quantity_photos]
+
+    for image in earth_photos:
         image_date = datetime.fromisoformat(image['date']) \
             .strftime('%Y/%m/%d')
         image_name = image['image']
