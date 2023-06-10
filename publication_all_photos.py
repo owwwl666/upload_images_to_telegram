@@ -13,7 +13,7 @@ def main():
 
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
     directory = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY'))
-    photos = os.listdir(pathlib.Path.cwd().joinpath('images'))
+    photos = os.listdir(pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY')))
     default_sleep = 4 * 3600
 
     while True:
