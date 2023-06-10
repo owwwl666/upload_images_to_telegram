@@ -3,9 +3,10 @@ import pathlib
 import argparse
 from datetime import datetime
 from download_file import downloads_file
+from environs import Env
 
 
-def downloads_images_from_nasa_epic(images_folder=pathlib.Path.cwd().joinpath('images'),
+def downloads_images_from_nasa_epic(images_folder,
                                     api_key='DEMO_KEY', photos_quantity=3):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
     earth_photos_url = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
@@ -25,11 +26,15 @@ def downloads_images_from_nasa_epic(images_folder=pathlib.Path.cwd().joinpath('i
 
 
 def main():
+    env = Env()
+    env.read_env()
+    images_folder = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY'))
+
     parser = argparse.ArgumentParser()
     parser.add_argument("-key", "--api_key", required=False, default='DEMO_KEY')
     parser.add_argument("-qp", "--photos_quantity", required=False, default=3, type=int)
     args = parser.parse_args()
-    downloads_images_from_nasa_epic(api_key=args.api_key, photos_quantity=args.photos_quantity)
+    downloads_images_from_nasa_epic(images_folder, api_key=args.api_key, photos_quantity=args.photos_quantity)
 
 
 if __name__ == '__main__':
