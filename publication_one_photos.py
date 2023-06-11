@@ -12,13 +12,14 @@ def main():
     env.read_env()
 
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
-    directory = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY'))
-    photos = os.listdir(pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY')))
+    chat_id = env('TELEGRAM_CHAT_ID')
+    directory = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY', './images'))
+    photos = os.listdir(pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY', './images')))
 
     try:
-        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int), photo=reads_file(env('PATH_TO_PHOTOS')))
+        bot.send_photo(chat_id=chat_id, photo=reads_file(env('PATH_TO_PHOTOS')))
     except environs.EnvError:
-        bot.send_photo(chat_id=env('TELEGRAM_CHAT_ID', int),
+        bot.send_photo(chat_id=chat_id,
                        photo=reads_file(pathlib.Path(directory).joinpath(random.choice(photos))))
 
 
