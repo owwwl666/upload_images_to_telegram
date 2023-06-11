@@ -15,7 +15,7 @@ def main():
     bot = telegram.Bot(token=env('TELEGRAM_BOT_TOKEN'))
     chat_id = env('TELEGRAM_CHAT_ID')
     directory = pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY', './images'))
-    photos = os.listdir(pathlib.Path.cwd().joinpath(env('PATH_TO_PHOTOS_DIRECTORY', './images')))
+    photos = os.listdir(directory)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-pause", "--publication_pause", required=False, default=4, type=int)
