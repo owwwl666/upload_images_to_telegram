@@ -17,11 +17,10 @@ def main():
     photos = os.listdir(directory)
 
     try:
-        bot.send_photo(chat_id=chat_id, photo=reads_file(env('PATH_TO_PHOTOS')))
+        photo_path = env('PATH_TO_PHOTOS')
     except environs.EnvError:
-        bot.send_photo(chat_id=chat_id,
-                       photo=reads_file(pathlib.Path(directory).joinpath(random.choice(photos))))
+        photo_path = pathlib.Path(directory).joinpath(random.choice(photos))
+    bot.send_photo(chat_id=chat_id, photo=reads_file(photo_path))
 
-
-if __name__ == '__main__':
-    main()
+    if __name__ == '__main__':
+        main()
