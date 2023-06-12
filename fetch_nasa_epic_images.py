@@ -9,10 +9,10 @@ from environs import Env
 def downloads_images_from_nasa_epic(images_folder,
                                     api_key='DEMO_KEY', photos_quantity=3):
     pathlib.Path(images_folder).mkdir(parents=True, exist_ok=True)
-    epic_nasa_picture_data = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
+    earth_picture_data = requests.get(url='https://api.nasa.gov/EPIC/api/natural',
                                           params={'api_key': api_key})
-    epic_nasa_picture_data.raise_for_status()
-    earth_photos = epic_nasa_picture_data.json()[:photos_quantity]
+    earth_picture_data.raise_for_status()
+    earth_photos = earth_picture_data.json()[:photos_quantity]
 
     for image in earth_photos:
         image_date = datetime.fromisoformat(image['date']) \
